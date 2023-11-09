@@ -2,7 +2,7 @@
 #ifndef __FUNCS_H__
 #define __FUNCS_H__
 
-void foo();
+void foo(int num);
 void poo();
 
 #endif
