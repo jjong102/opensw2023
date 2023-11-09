@@ -2,7 +2,7 @@
 
 int main(){
     
-    foo();
+    foo(2023);
     poo();
     
     return 0;
