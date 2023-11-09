@@ -3,5 +3,6 @@
 #define __FUNCS_H__
 
 void foo();
+void poo();
 
 #endif
