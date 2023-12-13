@@ -5,5 +5,6 @@
 void foo();
 void gogogogo();
 void poo();
+void wonjong();
 
 #endif
