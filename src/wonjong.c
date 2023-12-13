@@ -1,5 +1,6 @@
 #include "funcs.h"
 
 void wonjong (){
-    printf("goodddddddddddod!\n");
+    printf("goooood!\n");
+    printf("goooooo, life is beautiful!\n);
 }
