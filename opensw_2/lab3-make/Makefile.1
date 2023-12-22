@@ -1,0 +1,63 @@
+./bin/myapp: ./obj/func1.o ./obj/func2.o ./obj/main.o
+	gcc -o ./bin/myapp ./obj/func1.o ./obj/func2.o ./obj/main.o
+
+./obj/func1.o: ./src/func1.c
+	gcc -c ./src/func1.c -o ./obj/func1.o -I./include
+
+./obj/func2.o: ./src/func2.c
+	gcc -c ./src/func2.c -o ./obj/func2.o -I./include
+
+./obj/main.o: ./src/main.c
+	gcc -c ./src/main.c -o ./obj/main.o -I./include
+
+
+
+
+PROJ_DIR = $(PWD)
+SRC_DIR = $(PROJ_DIR)/src
+INCLUDE_DIR = $(PROJ_DIR)/include
+BIN_DIR = $(PROJ_DIR)/bin
+OBJ_DIR = $(PROJ_DIR)/obj
+LIB_DIR = $(PROJ_DIR)/lib
+
+all: $(BIN_DIR)/myapp
+
+
+OBJS = $(addprefix $(OBJ_DIR)/, func1.o func2.o main.o)
+
+$(BIN_DIR)/myapp: $(SRC_DIR)/main.c $(LIB_DIR)/libmyfuncs.a
+	gcc $< -I$(INCLUDE_DIR) -L$(LIB_DIR) -lmyfuncs -o $@
+# gcc -L/home/leewonjong/lab3-make/src -lmyfuncs -o /home/leewonjong/lab3-make/bin/myapp main.o	
+
+# gcc obj/main.o -o bin/myapp.lib –lfuncs –L./lib
+$(LIB_DIR)/%.a: $(OBJ_DIR)/func1.o $(OBJ_DIR)/func2.o
+	ar rv $(LIB_DIR)/libmyfuncs.a $^
+
+# gcc -o ./bin/myapp ./obj/func1.o ./obj/func2.o ./obj/main.o
+# $(OBJ_DIR)/func1.o $(OBJ_DIR)/func2.o $(OBJ_DIR)/main.o
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	gcc -c $< -o $@ -I$(INCLUDE_DIR)
+	
+
+
+clean:
+	rm -f $(OBJ_DIR)/*.o
+	rm -f $(BIN_DIR)/*
+	rm -f $(LIB_DIR)/*
+	
+# echo $(OBJS)
+
+
+# @echo $<
+# @echo $@
+# @echo $^ 
+
+# $^ 뒤에 있는 것들 전부다.
+
+# ./obj/func1.o: ./src/func1.c
+# 	gcc -c ./src/func1.c -o ./obj/func1.o -I./include
+# ./obj/func2.o: ./src/func2.c
+# 	gcc -c ./src/func2.c -o ./obj/func2.o -I./include
+# ./obj/main.o: ./src/main.c
+# 	gcc -c ./src/main.c -o ./obj/main.o -I./include
